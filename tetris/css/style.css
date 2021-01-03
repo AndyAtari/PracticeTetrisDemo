@@ -1,0 +1,19 @@
+
+
+.grid div {
+    height: 40px;
+    width: 40px;
+}
+
+.grid {
+    margin: auto;
+    background-color: blueviolet;
+    height: 800px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tetromino {
+    background-color: aquamarine;
+}
