@@ -17,7 +17,8 @@ function tetrisBoard() {
 function takenDivs() {
     for(i=0; i<10; i++) {
         let div = document.createElement('div');
-        takenDiv.appendChild(div)
+        div.className = "taken";
+        grid.appendChild(div)
     }
 }
     
@@ -87,10 +88,44 @@ function undraw() {
 
 timerId = setInterval(moveDown, 1000);
 
+
+function controller(event) {
+    if(event.keyCode === 65) {
+        moveLeft()
+    }
+}
+
+document.addEventListener('keyup', controller);
+
 function moveDown() {
     undraw() 
     currentPosition += width;
     draw()
+    freeze()
 }
+
+function freeze() {
+    if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+      current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+      random = Math.floor(Math.random() * theTetrominoes.length)
+      current = theTetrominoes[random][randomRotation]
+      currentPosition = 4
+      draw()
+    }
+}
+
+function moveLeft() {
+    undraw();
+    const leftEdge = current.some(index => (currentPosition + index) % width === 0)
+
+    if(!leftEdge) currentPosition -=1;
+
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+        currentPosition +=1;
+    }
+
+    draw();
+}
+
 
 })
